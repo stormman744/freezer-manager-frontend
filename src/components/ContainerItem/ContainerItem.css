@@ -1,0 +1,21 @@
+.ContainerItem {
+  font-size: 1.2rem;
+  transition: max-height 300ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  max-height: 8rem;
+  position: relative;
+}
+
+.ContainerItem__products {
+  overflow: hidden;
+}
+
+.ContainerItem--expanded {
+  max-height: 250px;
+}
+
+.expanded {
+  max-height: 250px;
+  overflow-y: auto;
+}

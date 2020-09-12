@@ -1,0 +1,20 @@
+.Navbar {
+    background-image: linear-gradient(to right, var(--mn-blue), var(--united-nations-blue));
+    height: 6rem;
+    width: 100%;      
+    
+}
+
+.Navbar__navigation {
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.Navbar__navigation__title {
+    color: #222;
+   font-size: 2.5rem;
+   font-weight: 700;
+   letter-spacing: 0.2rem;   
+}
