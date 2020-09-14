@@ -34,3 +34,99 @@ export const fetchContainers = () => {
       });
   };
 };
+
+export const UPDATE_CONTAINER_BEGIN = "UPDATE_CONTAINER_BEGIN";
+export const UPDATE_CONTAINER_SUCCESS = "UPDATE_CONTAINER_SUCCESS";
+export const UPDATE_CONTAINER_FAILURE = "UPDATE_CONTAINER_FAILURE";
+
+const updateContainerBegin = () => ({
+  type: UPDATE_CONTAINER_BEGIN,
+});
+
+const updateContainerSuccess = (data) => ({
+  type: UPDATE_CONTAINER_SUCCESS,
+  payload: data,
+});
+
+const updateContainerFailure = (err) => ({
+  type: UPDATE_CONTAINER_FAILURE,
+  payload: { err },
+});
+
+export const updateContainer = ({
+  containerId,
+  containerName,
+  containerDescription,
+}) => {
+  return (dispatch) => {
+    dispatch(updateContainerBegin());
+    return betterFetch(
+      process.env.REACT_APP_API_URL + "container/update/" + containerId,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          name: containerName,
+          description: containerDescription,
+        }),
+      }
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((jsonData) => {
+        dispatch(updateContainerSuccess(jsonData));
+        return jsonData;
+      })
+      .catch((err) => {
+        dispatch(updateContainerFailure(err));
+      });
+  };
+};
+
+export const POST_CONTAINER_BEGIN = "POST_CONTAINER_BEGIN";
+export const POST_CONTAINER_SUCCESS = "POST_CONTAINER_SUCCESS";
+export const POST_CONTAINER_FAILURE = "POST_CONTAINER_FAILURE";
+
+const postContainerBegin = () => ({
+  type: POST_CONTAINER_BEGIN,
+});
+
+const postContainerSuccess = (data) => ({
+  type: POST_CONTAINER_SUCCESS,
+  payload: data,
+});
+
+const postContainerFailure = (err) => ({
+  type: POST_CONTAINER_FAILURE,
+  payload: { err },
+});
+
+const handleDispatch = (url, options, begin, success, failure) => {
+  return (dispatch) => {
+    dispatch(begin());
+    return betterFetch(url, options)
+      .then((data) => {
+        return data.json();
+      })
+      .then((jsonData) => {
+        dispatch(success(jsonData));
+        return jsonData;
+      })
+      .catch((err) => {
+        dispatch(failure(err));
+      });
+  };
+};
+
+export const postContainer = ({ containerName, containerDescription }) => {
+  return handleDispatch(process.env.REACT_APP_API_URL + "container/post", {
+    method: "POST",
+    body: JSON.stringify({
+      name: containerName,
+      description: containerDescription,
+    }),
+    postContainerBegin,
+    postContainerSuccess,
+    postContainerFailure,
+  });
+};

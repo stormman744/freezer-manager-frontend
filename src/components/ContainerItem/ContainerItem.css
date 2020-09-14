@@ -19,3 +19,11 @@
   max-height: 250px;
   overflow-y: auto;
 }
+
+.ContainerItem__header {
+  display: grid;
+  grid-template-columns: auto 2rem;
+  background-color: #fff;
+}
+.ContainerItem__header:active {
+}

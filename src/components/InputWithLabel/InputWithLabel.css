@@ -1,0 +1,13 @@
+.InputWithLabel {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+}
+
+.InputWithLabel__label {
+  font-size: 1.5rem;
+}
+
+.InputWithLabel__input {
+}

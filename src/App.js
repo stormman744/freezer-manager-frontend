@@ -12,6 +12,7 @@ function App() {
         <Navbar />
         <ContainerWrapper />
       </div>
+      <div id="modal-root"></div>
     </Provider>
   );
 }

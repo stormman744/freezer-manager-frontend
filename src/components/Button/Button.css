@@ -1,0 +1,50 @@
+.Button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #fff;
+  background-color: var(--united-nations-blue);
+  appearance: none;
+  border: none;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+  padding: 1rem;
+}
+
+.Button:hover {
+  background-color: var(--mn-blue);
+}
+
+.Button__cancel {
+  background-color: #ccc;
+  color: #111;
+}
+
+.Button__cancel:hover {
+  background-color: #888;
+}
+
+.Button__createContainer {
+  border: 1px solid #666;
+  background-color: #eee;
+  padding: 0.5rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+}
+
+.Button__createContainer:hover {
+  background-color: #666;
+}
+
+.Button__createContainer > * {
+  transition: color 0.2s ease-in-out;
+  color: #666;
+}
+
+.Button__createContainer:hover > * {
+  color: #eee;
+}

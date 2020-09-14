@@ -1,0 +1,19 @@
+.Modal__background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(65, 69, 53, 0.4);
+}
+
+.Modal {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: auto;
+  opacity: 1;
+  background-color: #fff;
+}

@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { connect, shallowEqual, useDispatch, useSelector } from "react-redux";
+import { FiPlusCircle } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchContainers } from "../../store/actions/containerActions";
-import { selectContainers } from "../../store/selectors/containerSelectors";
+import { Button } from "../Button/Button";
 import { Container } from "../Container/Container";
-
 import "./ContainerWrapper.css";
 
-const ContainerWrapper = ({ containers, loading, error, getAllContainers }) => {
-  useEffect(() => {
-    console.log("Effect run!");
-    getAllContainers();
-  }, []);
+export const ContainerWrapper = () => {
+  const dispatch = useDispatch();
 
-  console.log(containers);
+  useEffect(() => {
+    dispatch(fetchContainers());
+  }, [dispatch]);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalResponse = (
+    response,
+    containerName,
+    containerDescription
+  ) => {};
+
+  const containers = useSelector((state) => state.containers.data);
 
   return (
     <div className="ContainerWrapper">
+      <Button onClick={() => setShowModal(!showModal)} type="createContainer">
+        <FiPlusCircle size="2rem" />
+      </Button>
       {containers &&
         containers.map((container) => {
           return <Container key={container.id} container={container} />;
@@ -23,22 +35,3 @@ const ContainerWrapper = ({ containers, loading, error, getAllContainers }) => {
     </div>
   );
 };
-
-function mapStateToProps(state) {
-  return {
-    containers: state.containers.data,
-    loading: state.containers.loading,
-    error: state.containers.error,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return { getAllContainers: () => dispatch(fetchContainers()) };
-}
-
-const connected = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ContainerWrapper);
-
-export { connected as ContainerWrapper };

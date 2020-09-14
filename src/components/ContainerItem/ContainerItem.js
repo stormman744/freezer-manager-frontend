@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateContainer } from "../../store/actions/containerActions";
+import { fetchProductsByContainerId } from "../../store/actions/productActions";
 import { ContainerHeader } from "../ContainerHeader/ContainerHeader";
+import { Modal } from "../Modal/Modal";
+import { ModalContentUpdateContainer } from "../ModalContentUpdateContainer/ModalContentUpdateContainer";
+import { OptionsButton } from "../OptionsButton/OptionsButton";
 import { Product } from "../Product/Product";
 import "./ContainerItem.css";
 
@@ -9,33 +15,47 @@ export const ContainerItem = ({
   containerDescription,
   expanded,
 }) => {
-  const [products, setProducts] = useState(null);
+  const products = useSelector((state) => state.products.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (products === null) {
-      fetch(process.env.REACT_APP_API_URL + "product/" + containerId)
-        .then((data) => {
-          return data.json();
-        })
-        .then((jsonData) => {
-          setProducts(jsonData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [products, containerId]);
+    dispatch(fetchProductsByContainerId(containerId));
+  }, [containerId, dispatch]);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalResponse = (
+    response,
+    containerName,
+    containerDescription
+  ) => {
+    if (response) {
+      dispatch(
+        updateContainer({ containerId, containerName, containerDescription })
+      );
+    }
+    setShowModal(false);
+  };
   return (
     <div
       className={
         expanded ? "ContainerItem ContainerItem--expanded " : "ContainerItem"
       }
     >
-      <ContainerHeader
-        containerName={containerName}
-        containerDescription={containerDescription}
-      />
+      <Modal isOpen={showModal}>
+        <ModalContentUpdateContainer
+          respond={handleModalResponse}
+          containerName={containerName}
+          containerDescription={containerDescription}
+        />
+      </Modal>
+      <div className="ContainerItem__header">
+        <ContainerHeader
+          containerName={containerName}
+          containerDescription={containerDescription}
+        />
+        <OptionsButton onClick={() => setShowModal(!showModal)} />
+      </div>
       <div
         className={
           expanded

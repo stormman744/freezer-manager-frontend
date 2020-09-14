@@ -1,0 +1,18 @@
+import { betterFetch } from "./betterFetch";
+
+export const handleDispatch = (url, options, begin, success, failure) => {
+  return (dispatch) => {
+    dispatch(begin());
+    return betterFetch(url, options)
+      .then((data) => {
+        return data.json();
+      })
+      .then((jsonData) => {
+        dispatch(success(jsonData));
+        return jsonData;
+      })
+      .catch((err) => {
+        dispatch(failure(err));
+      });
+  };
+};
