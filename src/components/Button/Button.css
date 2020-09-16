@@ -48,3 +48,7 @@
 .Button__createContainer:hover > * {
   color: #eee;
 }
+
+.Button__createProduct {
+  padding: 0.25rem;
+}

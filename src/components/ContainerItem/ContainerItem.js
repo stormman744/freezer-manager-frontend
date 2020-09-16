@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { FiPlusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContainer } from "../../store/actions/containerActions";
-import { fetchProductsByContainerId } from "../../store/actions/productActions";
+import {
+  fetchProductsByContainerId,
+  postProductWithContainerId,
+} from "../../store/actions/productActions";
+import { Button } from "../Button/Button";
 import { ContainerHeader } from "../ContainerHeader/ContainerHeader";
 import { Modal } from "../Modal/Modal";
+import { ModalActions } from "../ModalActions/ModalActions";
+import { ModalContentCreateProduct } from "../ModalContentCreateProduct/ModalContentCreateProduct";
 import { ModalContentUpdateContainer } from "../ModalContentUpdateContainer/ModalContentUpdateContainer";
 import { OptionsButton } from "../OptionsButton/OptionsButton";
 import { Product } from "../Product/Product";
+import { ProductTableHeader } from "../ProductTableHeader/ProductTableHeader";
 import "./ContainerItem.css";
 
 export const ContainerItem = ({
@@ -15,16 +23,38 @@ export const ContainerItem = ({
   containerDescription,
   expanded,
 }) => {
-  const products = useSelector((state) => state.products.data);
+  const products = useSelector((state) => state.products.data[containerId]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProductsByContainerId(containerId));
   }, [containerId, dispatch]);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showCreateProductModal, setShowCreateProductModal] = useState(false);
 
-  const handleModalResponse = (
+  const handleModalContentCreateProductResponse = (
+    response,
+    productName,
+    productAmount,
+    productUnit,
+    productExpiration
+  ) => {
+    if (response) {
+      dispatch(
+        postProductWithContainerId(
+          containerId,
+          productName,
+          productAmount,
+          productUnit,
+          productExpiration
+        )
+      );
+    }
+    setShowCreateProductModal(false);
+  };
+
+  const handleModalContentUpdateContainerResponse = (
     response,
     containerName,
     containerDescription
@@ -34,7 +64,7 @@ export const ContainerItem = ({
         updateContainer({ containerId, containerName, containerDescription })
       );
     }
-    setShowModal(false);
+    setShowUpdateModal(false);
   };
   return (
     <div
@@ -42,11 +72,16 @@ export const ContainerItem = ({
         expanded ? "ContainerItem ContainerItem--expanded " : "ContainerItem"
       }
     >
-      <Modal isOpen={showModal}>
+      <Modal isOpen={showUpdateModal}>
         <ModalContentUpdateContainer
-          respond={handleModalResponse}
+          respond={handleModalContentUpdateContainerResponse}
           containerName={containerName}
           containerDescription={containerDescription}
+        />
+      </Modal>
+      <Modal isOpen={showCreateProductModal}>
+        <ModalContentCreateProduct
+          respond={handleModalContentCreateProductResponse}
         />
       </Modal>
       <div className="ContainerItem__header">
@@ -54,7 +89,7 @@ export const ContainerItem = ({
           containerName={containerName}
           containerDescription={containerDescription}
         />
-        <OptionsButton onClick={() => setShowModal(!showModal)} />
+        <OptionsButton onClick={() => setShowUpdateModal(!showUpdateModal)} />
       </div>
       <div
         className={
@@ -63,6 +98,19 @@ export const ContainerItem = ({
             : "ContainerItem__products"
         }
       >
+        <Button
+          onClick={() => setShowCreateProductModal(!showCreateProductModal)}
+          type="createProduct"
+        >
+          <FiPlusCircle size="1.25rem" />
+        </Button>
+        {products?.length > 0 && (
+          <div className="ContainerItem__ProductTableHeaders">
+            <ProductTableHeader
+              headerTitles={["Name", "Amount", "Expiration"]}
+            />
+          </div>
+        )}
         {products &&
           products.map((product) => {
             return (
@@ -70,7 +118,7 @@ export const ContainerItem = ({
                 key={product.id}
                 productName={product.name}
                 productAmount={product.amount}
-                productUnit={product.unit}
+                productUnitId={product.unit_id}
                 productExpiration={product.expiration_date}
               />
             );

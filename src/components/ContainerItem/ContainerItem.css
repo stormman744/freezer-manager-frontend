@@ -3,7 +3,7 @@
   transition: max-height 300ms ease-in-out;
   display: flex;
   flex-direction: column;
-  max-height: 8rem;
+  max-height: 11rem;
   position: relative;
 }
 
@@ -12,11 +12,11 @@
 }
 
 .ContainerItem--expanded {
-  max-height: 250px;
+  max-height: 300px;
 }
 
 .expanded {
-  max-height: 250px;
+  max-height: 300px;
   overflow-y: auto;
 }
 

@@ -119,14 +119,17 @@ const handleDispatch = (url, options, begin, success, failure) => {
 };
 
 export const postContainer = ({ containerName, containerDescription }) => {
-  return handleDispatch(process.env.REACT_APP_API_URL + "container/post", {
-    method: "POST",
-    body: JSON.stringify({
-      name: containerName,
-      description: containerDescription,
-    }),
+  return handleDispatch(
+    process.env.REACT_APP_API_URL + "container/post",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        name: containerName,
+        description: containerDescription,
+      }),
+    },
     postContainerBegin,
     postContainerSuccess,
-    postContainerFailure,
-  });
+    postContainerFailure
+  );
 };

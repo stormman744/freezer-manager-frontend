@@ -1,14 +1,16 @@
-.InputWithLabel {
+.Dropdown {
+  width: 100%;
   display: grid;
   grid-template-columns: 8rem auto;
   margin-bottom: 1rem;
   align-items: center;
 }
 
-.InputWithLabel__label {
+.Dropdown__select {
   font-size: 1rem;
+  padding: 0.5rem;
 }
 
-.InputWithLabel__input {
-  padding: 0.5rem;
+.Dropdown__label {
+  font-size: 1rem;
 }

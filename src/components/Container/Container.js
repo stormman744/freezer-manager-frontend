@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { ContainerItem } from "../ContainerItem/ContainerItem";
 import { ChevronButton } from "../ChevronButton/ChevronButton";
 import "./Container.css";
+import { useSelector } from "react-redux";
 
 export const Container = ({ container }) => {
   const [expanded, setExpanded] = useState(false);
+  const productsLength = useSelector(
+    (state) => state?.products?.data[container.id]?.length
+  );
   return (
     <div className="Container__wrapper">
       <ContainerItem
@@ -14,7 +18,9 @@ export const Container = ({ container }) => {
         containerName={container.name}
         containerDescription={container.description}
       />
-      <ChevronButton expanded={expanded} setExpanded={setExpanded} />
+      {productsLength > 1 && (
+        <ChevronButton expanded={expanded} setExpanded={setExpanded} />
+      )}
     </div>
   );
 };

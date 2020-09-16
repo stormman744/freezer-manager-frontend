@@ -22,7 +22,7 @@ export const products = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        data: { ...state.data, [action.containerId]: action.payload },
       };
     case FETCH_PRODUCTSBYCONTAINERID_FAILURE:
       return actionFailed(state, action);
