@@ -1,14 +1,14 @@
 import React from "react";
 import "./Dropdown.css";
 
-export const Dropdown = ({ label = "Label", units, setValue }) => {
-  if (units) {
+export const Dropdown = ({ label = "Label", options, setValue }) => {
+  if (options.length > 0) {
     return (
       <div className="Dropdown">
         <div className="Dropdown__label">{label}</div>
         <select className="Dropdown__select" onChange={setValue}>
-          {units.map((unit) => {
-            return <option key={unit.id}>{unit.name}</option>;
+          {options.map((option) => {
+            return <option key={option.id}>{option.name}</option>;
           })}
         </select>
       </div>

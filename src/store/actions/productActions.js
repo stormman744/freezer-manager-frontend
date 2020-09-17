@@ -68,6 +68,7 @@ export const postProductWithContainerId = ({
   productUnitId,
   productExpiration,
 }) => {
+  console.log(containerId,productName, productAmount, productUnitId, productExpiration);
   return handleDispatch(
     process.env.REACT_APP_API_URL + "product/post",
     {

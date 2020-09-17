@@ -20,7 +20,7 @@ export const ModalContentCreateProduct = ({ respond }) => {
 
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
-  const [unitId, setUnitId] = useState("");
+  const [unitId, setUnitId] = useState(1);
   const [expirationDate, setExpirationDate] = useState(new Date());
 
   const datePickerContainer = () => {
@@ -41,7 +41,14 @@ export const ModalContentCreateProduct = ({ respond }) => {
         label="Amount"
         setValue={(e) => setAmount(e.target.value)}
       />
-      <Dropdown units={units} setValue={(e) => setUnitId(e.target.value)} />
+      <Dropdown options={units} setValue={(e) => 
+       
+        {
+          console.log("Index: ", e.target.selectedIndex);
+          console.log(units[e.target.selectedIndex].id);
+          setUnitId(units[e.target.selectedIndex].id);
+        }
+        } />
 
       <DatePicker
         showWeekNumbers
@@ -56,7 +63,6 @@ export const ModalContentCreateProduct = ({ respond }) => {
         <Button
           onClick={() => {
             respond(true, name, amount, unitId, expirationDate);
-            console.log(true, name, amount, unitId, expirationDate);
           }}
         >
           <div>ADD</div>

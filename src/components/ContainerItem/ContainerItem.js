@@ -37,17 +37,17 @@ export const ContainerItem = ({
     response,
     productName,
     productAmount,
-    productUnit,
+    productUnitId,
     productExpiration
   ) => {
     if (response) {
       dispatch(
         postProductWithContainerId(
-          containerId,
+          {containerId,
           productName,
           productAmount,
-          productUnit,
-          productExpiration
+          productUnitId,
+          productExpiration}
         )
       );
     }

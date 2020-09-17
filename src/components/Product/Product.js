@@ -11,7 +11,7 @@ export const Product = ({
   productExpiration = "",
 }) => {
   const dispatch = useDispatch();
-  const unit = useSelector((state) => state.unit.data);
+  const unit = useSelector((state) => state?.unit?.data);
 
   useEffect(() => {
     dispatch(fetchUnitById(productUnitId));
