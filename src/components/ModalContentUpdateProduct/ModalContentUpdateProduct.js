@@ -1,62 +1,64 @@
 import React, { useState } from "react";
-import DatePicker, { CalendarContainer } from "react-datepicker";
 import { useSelector } from "react-redux";
 import { Button } from "../Button/Button";
+import { DatePicker } from "../DatePicker/DatePicker";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { InputWithLabel } from "../InputWithLabel/InputWithLabel";
 import { ModalActions } from "../ModalActions/ModalActions";
 import { ModalTitle } from "../ModalTitle/ModalTitle";
-import "./ModalContentCreateProduct.css";
+import "./ModalContentUpdateProduct.css";
 
-export const ModalContentCreateProduct = ({ respond }) => {
+export const ModalContentUpdateProduct = ({
+  respond,
+  productName,
+  productAmount,
+  productUnitId,
+  productExpiration,
+}) => {
   const units = useSelector((state) => state.units.data);
 
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [unitId, setUnitId] = useState(1);
-  const [expirationDate, setExpirationDate] = useState(new Date());
+  const [name, setName] = useState(productName);
+  const [amount, setAmount] = useState(productAmount);
+  const [unitId, setUnitId] = useState(productUnitId);
+  const [expirationDate, setExpirationDate] = useState(
+    new Date(productExpiration)
+  );
 
-  const datePickerContainer = () => {
-    return (
-      <CalendarContainer className="datePickerContainer"></CalendarContainer>
-    );
-  };
   return (
-    <div className="ModalContentCreateProduct">
-      <ModalTitle title={"Add product"} />
+    <div className="ModalContentUpdateProduct">
+      <ModalTitle title={`Edit ${productName}`} />
       <InputWithLabel
         placeholder="Name"
         label="Name"
+        value={name}
         setValue={(e) => setName(e.target.value)}
       />
       <InputWithLabel
         placeholder="Amount"
         label="Amount"
+        value={amount}
         setValue={(e) => setAmount(e.target.value)}
       />
       <Dropdown
         options={units}
+        label={"Unit"}
+        selected={unitId}
         setValue={(e) => {
           setUnitId(units[e.target.selectedIndex].id);
         }}
       />
-
       <DatePicker
-        showWeekNumbers
-        selected={expirationDate}
+        value={expirationDate}
         onChange={(date) => {
-          setExpirationDate(date);
+          setExpirationDate(new Date(date));
         }}
-        dateFormat="dd/MM/yyyy"
-        calendarContainer={datePickerContainer}
       />
+
       <ModalActions>
         <Button
-          onClick={() => {
-            respond(true, name, amount, unitId, expirationDate);
-          }}
+          onClick={() => respond(true, name, amount, unitId, expirationDate)}
         >
-          <div>ADD</div>
+          <div>UPDATE</div>
         </Button>
         <Button type="cancel" onClick={() => respond(false)}>
           <div>CANCEL</div>

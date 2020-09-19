@@ -1,14 +1,18 @@
 .Product {
   display: inline-grid;
-  grid-template-columns: 7rem 4rem auto;
+  grid-template-columns: 1.5fr 1fr auto;
   grid-template-rows: auto;
   padding: 0.5rem;
   border-bottom: 1px solid #888;
   width: 100%;
+  line-height: 1.2rem;
 }
 
 .Product > div {
-  padding: 0 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
 }
 
 .Product__expiration {

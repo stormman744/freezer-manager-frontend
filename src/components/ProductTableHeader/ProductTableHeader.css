@@ -1,7 +1,7 @@
 .ProductTableHeader {
   font-weight: 700;
   display: inline-grid;
-  grid-template-columns: 7rem 4rem auto;
+  grid-template-columns: 1.5fr 1fr auto;
   grid-template-rows: auto;
   padding: 0.5rem;
   border-bottom: 1px solid #888;

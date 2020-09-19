@@ -51,9 +51,10 @@ const postProductWithContainerIdBegin = () => ({
   type: "POST_PRODUCTWITHCONTAINERID_BEGIN",
 });
 
-const postProductWithContainerIdSuccess = (data) => ({
+const postProductWithContainerIdSuccess = (data, containerId) => ({
   type: "POST_PRODUCTWITHCONTAINERID_SUCCESS",
   payload: data,
+  containerId,
 });
 
 const postProductWithContainerIdFailure = (err) => ({
@@ -68,7 +69,6 @@ export const postProductWithContainerId = ({
   productUnitId,
   productExpiration,
 }) => {
-  console.log(containerId,productName, productAmount, productUnitId, productExpiration);
   return handleDispatch(
     process.env.REACT_APP_API_URL + "product/post",
     {
@@ -83,6 +83,7 @@ export const postProductWithContainerId = ({
     },
     postProductWithContainerIdBegin,
     postProductWithContainerIdSuccess,
-    postProductWithContainerIdFailure
+    postProductWithContainerIdFailure,
+    containerId
   );
 };

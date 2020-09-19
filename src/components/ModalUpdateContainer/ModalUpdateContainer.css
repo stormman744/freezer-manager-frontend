@@ -1,0 +1,30 @@
+.ModalUpdateContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(65, 69, 53, 0.4);
+}
+
+.ModalUpdateContainer__content {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: auto;
+  opacity: 1;
+  background-color: #fff;
+}
+
+.ModalUpdateContainer__content__field {
+  display: grid;
+  grid-template-columns: 10rem auto;
+}
+
+.ModalUpdateContainer__actionsContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+}

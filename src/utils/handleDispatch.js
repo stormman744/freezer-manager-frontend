@@ -16,7 +16,6 @@ export const handleDispatch = (
       })
       .then((jsonData) => {
         dispatch(success(jsonData, returnValues));
-        console.log(returnValues);
         return jsonData;
       })
       .catch((err) => {

@@ -9,6 +9,7 @@
 .Dropdown__select {
   font-size: 1rem;
   padding: 0.5rem;
+  width: 100%;
 }
 
 .Dropdown__label {

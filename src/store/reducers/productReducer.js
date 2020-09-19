@@ -3,6 +3,9 @@ import {
   FETCH_PRODUCTSBYCONTAINERID_BEGIN,
   FETCH_PRODUCTSBYCONTAINERID_FAILURE,
   FETCH_PRODUCTSBYCONTAINERID_SUCCESS,
+  POST_PRODUCTWITHCONTAINERID_BEGIN,
+  POST_PRODUCTWITHCONTAINERID_FAILURE,
+  POST_PRODUCTWITHCONTAINERID_SUCCESS,
 } from "../actions/productActions";
 
 const initialState = {
@@ -26,6 +29,28 @@ export const products = (state = initialState, action) => {
       };
     case FETCH_PRODUCTSBYCONTAINERID_FAILURE:
       return actionFailed(state, action);
+
+    case POST_PRODUCTWITHCONTAINERID_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_PRODUCTWITHCONTAINERID_SUCCESS:
+      const returnObject = {
+        ...state,
+        loading: false,
+        data: {
+          ...state.data,
+          [action.containerId]: [
+            action.payload,
+            ...state.data[action.containerId],
+          ],
+        },
+      };
+      return returnObject;
+    case POST_PRODUCTWITHCONTAINERID_FAILURE:
+      return actionFailed(state, action);
+
     default:
       return state;
   }

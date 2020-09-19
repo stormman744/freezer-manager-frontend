@@ -48,7 +48,7 @@ const fetchUnitByIdFailure = (err) => ({
 
 export const fetchUnitById = (unitId) => {
   return handleDispatch(
-    process.env.REACT_APP_API_URL + "unit/" + unitId,
+    process.env.REACT_APP_API_URL + "units/" + unitId,
     "",
     fetchUnitByIdBegin,
     fetchUnitByIdSuccess,

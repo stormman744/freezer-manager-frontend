@@ -9,7 +9,6 @@ import {
 import { Button } from "../Button/Button";
 import { ContainerHeader } from "../ContainerHeader/ContainerHeader";
 import { Modal } from "../Modal/Modal";
-import { ModalActions } from "../ModalActions/ModalActions";
 import { ModalContentCreateProduct } from "../ModalContentCreateProduct/ModalContentCreateProduct";
 import { ModalContentUpdateContainer } from "../ModalContentUpdateContainer/ModalContentUpdateContainer";
 import { OptionsButton } from "../OptionsButton/OptionsButton";
@@ -42,13 +41,13 @@ export const ContainerItem = ({
   ) => {
     if (response) {
       dispatch(
-        postProductWithContainerId(
-          {containerId,
+        postProductWithContainerId({
+          containerId,
           productName,
           productAmount,
           productUnitId,
-          productExpiration}
-        )
+          productExpiration,
+        })
       );
     }
     setShowCreateProductModal(false);

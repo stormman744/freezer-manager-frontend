@@ -1,3 +1,4 @@
+import { orderBy } from "lodash";
 import { actionFailed } from "../../utils/actionFailed";
 import {
   FETCH_CONTAINERS_BEGIN,
@@ -10,8 +11,6 @@ import {
   UPDATE_CONTAINER_FAILURE,
   UPDATE_CONTAINER_SUCCESS,
 } from "../actions/containerActions";
-
-import { cloneDeep, orderBy } from "lodash";
 
 const initialState = {
   data: [],
@@ -43,10 +42,7 @@ export const containers = (state = initialState, action) => {
         loading: true,
       };
     case UPDATE_CONTAINER_SUCCESS:
-      //const prevState = cloneDeep(state);
       const { payload } = action;
-
-      //console.log(prevState === state);
 
       const newItems = state.data.map((container) => {
         if (container.id === payload.id) {

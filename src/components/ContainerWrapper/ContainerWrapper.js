@@ -5,6 +5,7 @@ import {
   fetchContainers,
   postContainer,
 } from "../../store/actions/containerActions";
+import { fetchUnits } from "../../store/actions/unitActions";
 import { Button } from "../Button/Button";
 import { Container } from "../Container/Container";
 import { Modal } from "../Modal/Modal";
@@ -17,11 +18,10 @@ export const ContainerWrapper = () => {
 
   useEffect(() => {
     dispatch(fetchContainers());
+    dispatch(fetchUnits());
   }, [dispatch]);
 
   const [showModal, setShowModal] = useState(false);
-
-  console.log(containers);
 
   const handleModalResponse = (
     response,

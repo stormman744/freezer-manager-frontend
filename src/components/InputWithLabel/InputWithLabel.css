@@ -3,6 +3,7 @@
   grid-template-columns: 8rem auto;
   margin-bottom: 1rem;
   align-items: center;
+  width: 100%;
 }
 
 .InputWithLabel__label {
@@ -11,4 +12,5 @@
 
 .InputWithLabel__input {
   padding: 0.5rem;
+  width: 100%;
 }

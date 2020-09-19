@@ -1,8 +1,9 @@
 import React from "react";
-import { Navbar } from "./components/Navbar/Navbar";
+import "react-calendar/dist/Calendar.css";
+import { Provider } from "react-redux";
 import "./App.css";
 import { ContainerWrapper } from "./components/ContainerWrapper/ContainerWrapper";
-import { Provider } from "react-redux";
+import { Navbar } from "./components/Navbar/Navbar";
 import { store } from "./store/store";
 
 function App() {
