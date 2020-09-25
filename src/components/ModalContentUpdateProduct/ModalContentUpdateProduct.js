@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button } from "../Button/Button";
 import { DatePicker } from "../DatePicker/DatePicker";
 import { Dropdown } from "../Dropdown/Dropdown";
+import { InputField } from "../InputField/InputField";
 import { InputWithLabel } from "../InputWithLabel/InputWithLabel";
 import { ModalActions } from "../ModalActions/ModalActions";
 import { ModalTitle } from "../ModalTitle/ModalTitle";
@@ -26,19 +28,21 @@ export const ModalContentUpdateProduct = ({
 
   return (
     <div className="ModalContentUpdateProduct">
-      <ModalTitle title={`Edit ${productName}`} />
-      <InputWithLabel
-        placeholder="Name"
-        label="Name"
-        value={name}
-        setValue={(e) => setName(e.target.value)}
-      />
-      <InputWithLabel
-        placeholder="Amount"
-        label="Amount"
-        value={amount}
-        setValue={(e) => setAmount(e.target.value)}
-      />
+      <ModalTitle title={`${productName}`} />
+      <InputWithLabel label="Name">
+        <InputField
+          placeholder="Name"
+          value={name}
+          setValue={(e) => setName(e.target.value)}
+        />
+      </InputWithLabel>
+      <InputWithLabel label="Amount">
+        <InputField
+          placeholder="Amount"
+          value={amount}
+          setValue={(e) => setAmount(e.target.value)}
+        />
+      </InputWithLabel>
       <Dropdown
         options={units}
         label={"Unit"}
@@ -48,19 +52,27 @@ export const ModalContentUpdateProduct = ({
         }}
       />
       <DatePicker
+        label="Expiration"
         value={expirationDate}
         onChange={(date) => {
           setExpirationDate(new Date(date));
         }}
       />
+      <div className="ModalContentUpdateProduct__deleteButtonWrapper">
+        <Button onClick={() => respond("DELETE")} type="delete">
+          <FaTrashAlt size="1.25rem" />
+        </Button>
+      </div>
 
       <ModalActions>
         <Button
-          onClick={() => respond(true, name, amount, unitId, expirationDate)}
+          onClick={() =>
+            respond("UPDATE", name, amount, unitId, expirationDate)
+          }
         >
           <div>UPDATE</div>
         </Button>
-        <Button type="cancel" onClick={() => respond(false)}>
+        <Button type="cancel" onClick={() => respond(null)}>
           <div>CANCEL</div>
         </Button>
       </ModalActions>

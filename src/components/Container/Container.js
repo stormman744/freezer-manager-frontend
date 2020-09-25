@@ -18,7 +18,8 @@ export const Container = ({ container }) => {
         containerName={container.name}
         containerDescription={container.description}
       />
-      {productsLength > 1 && (
+
+      {productsLength > 2 && (
         <ChevronButton expanded={expanded} setExpanded={setExpanded} />
       )}
     </div>

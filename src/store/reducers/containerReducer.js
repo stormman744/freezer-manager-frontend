@@ -1,6 +1,8 @@
 import { orderBy } from "lodash";
 import { actionFailed } from "../../utils/actionFailed";
 import {
+  DELETE_CONTAINER_BEGIN,
+  DELETE_CONTAINER_SUCCESS,
   FETCH_CONTAINERS_BEGIN,
   FETCH_CONTAINERS_FAILURE,
   FETCH_CONTAINERS_SUCCESS,
@@ -76,6 +78,19 @@ export const containers = (state = initialState, action) => {
     case POST_CONTAINER_FAILURE:
       return actionFailed(state, action);
 
+    case DELETE_CONTAINER_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CONTAINER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: state.data.filter(
+          (container) => container.id !== action.payload.id
+        ),
+      };
     default:
       return state;
   }

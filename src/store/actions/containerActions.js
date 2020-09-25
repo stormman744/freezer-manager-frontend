@@ -133,3 +133,36 @@ export const postContainer = ({ containerName, containerDescription }) => {
     postContainerFailure
   );
 };
+
+export const DELETE_CONTAINER_BEGIN = "DELETE_CONTAINER_BEGIN";
+export const DELETE_CONTAINER_SUCCESS = "DELETE_CONTAINER_SUCCESS";
+export const DELETE_CONTAINER_FAILURE = "DELETE_CONTAINER_FAILURE";
+
+const deleteContainerBegin = () => ({
+  type: DELETE_CONTAINER_BEGIN,
+});
+
+const deleteContainerSuccess = (data) => ({
+  type: DELETE_CONTAINER_SUCCESS,
+  payload: data,
+});
+
+const deleteContainerFailure = (err) => ({
+  type: DELETE_CONTAINER_FAILURE,
+  payload: { err },
+});
+
+export const deleteContainer = ({ containerId }) => {
+  return handleDispatch(
+    process.env.REACT_APP_API_URL + "container/delete/" + containerId,
+    {
+      method: "DELETE",
+      body: JSON.stringify({
+        containerId: containerId,
+      }),
+    },
+    deleteContainerBegin,
+    deleteContainerSuccess,
+    deleteContainerFailure
+  );
+};

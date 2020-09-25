@@ -1,26 +1,28 @@
+import { isBefore } from "date-fns/esm";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct } from "../../store/actions/productActions";
 import { formatDate } from "../../utils/formatDate";
 import { Modal } from "../Modal/Modal";
 import { ModalContentUpdateProduct } from "../ModalContentUpdateProduct/ModalContentUpdateProduct";
 import "./Product.css";
 
 export const Product = ({
+  productId = null,
+  containerId = null,
   productName = "",
   productAmount = "",
   productUnitId = -1,
   productExpiration = "",
 }) => {
-  const handleModalContentUpdateProductResponse = (
-    response,
-    productName,
-    productAmount,
-    productUnitId,
-    productExpiration
-  ) => {
-    if (response) {
+  const dispatch = useDispatch();
+  const handleModalContentUpdateProductResponse = (response) => {
+    if (response === "UPDATE") {
       console.log("Update the product....");
+    } else if (response === "DELETE") {
+      dispatch(deleteProduct({ productId, containerId }));
     }
+
     setShowUpdateModal(false);
   };
 
@@ -45,6 +47,11 @@ export const Product = ({
       </Modal>
       <div
         className="Product"
+        style={{
+          backgroundColor: isBefore(new Date(productExpiration), Date.now())
+            ? "rgba(247, 106, 106,0.3)"
+            : "transparent",
+        }}
         onClick={() => {
           setShowUpdateModal(!showUpdateModal);
         }}

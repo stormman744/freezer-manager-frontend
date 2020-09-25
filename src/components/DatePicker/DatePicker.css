@@ -11,6 +11,16 @@
 .DatePicker__input {
   padding: 0.5rem;
   width: 100%;
-  margin-bottom: 1rem;
   text-align: right;
+  border-radius: 4px;
+}
+
+.DatePicker__label {
+  align-items: center;
+}
+
+.DatePicker {
+  display: grid;
+  margin-bottom: 1rem;
+  align-items: center;
 }

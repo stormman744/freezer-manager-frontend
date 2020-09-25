@@ -20,7 +20,7 @@ const fetchUnitsFailure = (err) => ({
 
 export const fetchUnits = () => {
   return handleDispatch(
-    process.env.REACT_APP_API_URL + "units/all",
+    process.env.REACT_APP_API_URL + "unit/all",
     "",
     fetchUnitsBegin,
     fetchUnitsSuccess,
@@ -48,7 +48,7 @@ const fetchUnitByIdFailure = (err) => ({
 
 export const fetchUnitById = (unitId) => {
   return handleDispatch(
-    process.env.REACT_APP_API_URL + "units/" + unitId,
+    process.env.REACT_APP_API_URL + "unit/" + unitId,
     "",
     fetchUnitByIdBegin,
     fetchUnitByIdSuccess,

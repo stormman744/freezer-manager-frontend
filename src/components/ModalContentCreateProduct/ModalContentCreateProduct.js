@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import DatePicker, { CalendarContainer } from "react-datepicker";
 import { useSelector } from "react-redux";
 import { Button } from "../Button/Button";
+import { DatePicker } from "../DatePicker/DatePicker";
 import { Dropdown } from "../Dropdown/Dropdown";
+import { InputField } from "../InputField/InputField";
 import { InputWithLabel } from "../InputWithLabel/InputWithLabel";
 import { ModalActions } from "../ModalActions/ModalActions";
 import { ModalTitle } from "../ModalTitle/ModalTitle";
@@ -16,24 +17,23 @@ export const ModalContentCreateProduct = ({ respond }) => {
   const [unitId, setUnitId] = useState(1);
   const [expirationDate, setExpirationDate] = useState(new Date());
 
-  const datePickerContainer = () => {
-    return (
-      <CalendarContainer className="datePickerContainer"></CalendarContainer>
-    );
-  };
   return (
     <div className="ModalContentCreateProduct">
       <ModalTitle title={"Add product"} />
-      <InputWithLabel
-        placeholder="Name"
-        label="Name"
-        setValue={(e) => setName(e.target.value)}
-      />
-      <InputWithLabel
-        placeholder="Amount"
-        label="Amount"
-        setValue={(e) => setAmount(e.target.value)}
-      />
+      <InputWithLabel label="Name">
+        <InputField
+          placeholder="Name"
+          value={name}
+          setValue={(e) => setName(e.target.value)}
+        />
+      </InputWithLabel>
+      <InputWithLabel label="Amount">
+        <InputField
+          placeholder="Amount"
+          value={amount}
+          setValue={(e) => setAmount(e.target.value)}
+        />
+      </InputWithLabel>
       <Dropdown
         options={units}
         setValue={(e) => {
@@ -42,13 +42,10 @@ export const ModalContentCreateProduct = ({ respond }) => {
       />
 
       <DatePicker
-        showWeekNumbers
-        selected={expirationDate}
+        value={expirationDate}
         onChange={(date) => {
-          setExpirationDate(date);
+          setExpirationDate(new Date(date));
         }}
-        dateFormat="dd/MM/yyyy"
-        calendarContainer={datePickerContainer}
       />
       <ModalActions>
         <Button

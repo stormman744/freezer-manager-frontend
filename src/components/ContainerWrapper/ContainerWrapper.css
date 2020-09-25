@@ -1,3 +1,11 @@
 .ContainerWrapper {
   padding: 2rem;
 }
+
+.ContainerWrapper__noContainersMessage {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}

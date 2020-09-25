@@ -10,6 +10,14 @@
   font-size: 1rem;
   padding: 0.5rem;
   width: 100%;
+  border-radius: 4px;
+  direction: rtl;
+  appearance: none;
+  text-align: right;
+}
+
+.Dropdown__select > option {
+  text-align: right;
 }
 
 .Dropdown__label {

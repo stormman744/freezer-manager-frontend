@@ -9,10 +9,11 @@
   border: none;
   outline: none;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 200ms ease-in-out;
   padding: 1rem;
+  max-height: 45px;
 }
 
 .Button:hover {
@@ -26,6 +27,13 @@
 
 .Button__cancel:hover {
   background-color: #888;
+}
+
+.Button__delete {
+  background-color: #c91e1e;
+}
+.Button__delete:hover {
+  background-color: #850d0d;
 }
 
 .Button__createContainer {

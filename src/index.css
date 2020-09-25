@@ -162,6 +162,8 @@ table {
 input {
   outline: none;
   box-sizing: border-box;
+  border-width: 1px;
+  border-color: #888;
 }
 
 body {

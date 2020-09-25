@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaRegSadTear, FaSadCry } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -46,6 +47,12 @@ export const ContainerWrapper = () => {
         containers.map((container) => {
           return <Container key={container.id} container={container} />;
         })}
+      {containers.length === 0 && (
+        <div className="ContainerWrapper__noContainersMessage">
+          YOU HAVE NO CONTAINERS
+          <FaRegSadTear size="7rem" />
+        </div>
+      )}
     </div>
   );
 };

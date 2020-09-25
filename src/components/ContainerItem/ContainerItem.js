@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { FaRegSadTear } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContainer } from "../../store/actions/containerActions";
+import {
+  deleteContainer,
+  updateContainer,
+} from "../../store/actions/containerActions";
 import {
   fetchProductsByContainerId,
   postProductWithContainerId,
@@ -23,6 +27,7 @@ export const ContainerItem = ({
   expanded,
 }) => {
   const products = useSelector((state) => state.products.data[containerId]);
+  console.log(products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,10 +63,12 @@ export const ContainerItem = ({
     containerName,
     containerDescription
   ) => {
-    if (response) {
+    if (response === "UPDATE") {
       dispatch(
         updateContainer({ containerId, containerName, containerDescription })
       );
+    } else if (response === "DELETE") {
+      dispatch(deleteContainer({ containerId }));
     }
     setShowUpdateModal(false);
   };
@@ -115,6 +122,8 @@ export const ContainerItem = ({
             return (
               <Product
                 key={product.id}
+                productId={product.id}
+                containerId={containerId}
                 productName={product.name}
                 productAmount={product.amount}
                 productUnitId={product.unit_id}
@@ -122,6 +131,12 @@ export const ContainerItem = ({
               />
             );
           })}
+        {products && products.length === 0 && (
+          <div className="ContainerItem__noProductsMessage">
+            YOU HAVE NO PRODUCTS
+            <FaRegSadTear size="1.5rem" />
+          </div>
+        )}
       </div>
     </div>
   );

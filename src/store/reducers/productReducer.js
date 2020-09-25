@@ -1,5 +1,7 @@
 import { actionFailed } from "../../utils/actionFailed";
 import {
+  DELETE_PRODUCT_BEGIN,
+  DELETE_PRODUCT_SUCCESS,
   FETCH_PRODUCTSBYCONTAINERID_BEGIN,
   FETCH_PRODUCTSBYCONTAINERID_FAILURE,
   FETCH_PRODUCTSBYCONTAINERID_SUCCESS,
@@ -48,6 +50,22 @@ export const products = (state = initialState, action) => {
         },
       };
       return returnObject;
+    case DELETE_PRODUCT_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: {
+          ...state.data,
+          [action.payload.container_id]: state.data[
+            action.payload.container_id
+          ].filter((product) => product.id !== action.payload.id),
+        },
+      };
     case POST_PRODUCTWITHCONTAINERID_FAILURE:
       return actionFailed(state, action);
 

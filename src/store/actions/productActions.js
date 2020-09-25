@@ -48,17 +48,17 @@ export const POST_PRODUCTWITHCONTAINERID_FAILURE =
   "POST_PRODUCTWITHCONTAINERID_FAILURE";
 
 const postProductWithContainerIdBegin = () => ({
-  type: "POST_PRODUCTWITHCONTAINERID_BEGIN",
+  type: POST_PRODUCTWITHCONTAINERID_BEGIN,
 });
 
 const postProductWithContainerIdSuccess = (data, containerId) => ({
-  type: "POST_PRODUCTWITHCONTAINERID_SUCCESS",
+  type: POST_PRODUCTWITHCONTAINERID_SUCCESS,
   payload: data,
   containerId,
 });
 
 const postProductWithContainerIdFailure = (err) => ({
-  type: "POST_PRODUCTWITHCONTAINERID_FAILURE",
+  type: POST_PRODUCTWITHCONTAINERID_FAILURE,
   payload: { err },
 });
 
@@ -84,6 +84,40 @@ export const postProductWithContainerId = ({
     postProductWithContainerIdBegin,
     postProductWithContainerIdSuccess,
     postProductWithContainerIdFailure,
+    containerId
+  );
+};
+
+export const DELETE_PRODUCT_BEGIN = "DELETE_PRODUCT_BEGIN";
+export const DELETE_PRODUCT_SUCCESS = "DELETE_PRODUCT_SUCCESS";
+export const DELETE_PRODUCT_FAILURE = "DELETE_PRODUCT_FAILURE";
+
+const deleteProductBegin = () => ({
+  type: DELETE_PRODUCT_BEGIN,
+});
+
+const deleteProductSuccess = (data) => ({
+  type: DELETE_PRODUCT_SUCCESS,
+  payload: data,
+});
+
+const deleteProductFailure = (err) => ({
+  type: DELETE_PRODUCT_FAILURE,
+  payload: err,
+});
+
+export const deleteProduct = ({ productId, containerId }) => {
+  return handleDispatch(
+    process.env.REACT_APP_API_URL + "product/delete/" + productId,
+    {
+      method: "DELETE",
+      body: JSON.stringify({
+        product_id: productId,
+      }),
+    },
+    deleteProductBegin,
+    deleteProductSuccess,
+    deleteProductFailure,
     containerId
   );
 };
